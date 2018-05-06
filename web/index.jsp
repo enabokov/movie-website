@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: eduardnabokov
-  Date: 5/6/18
-  Time: 9:35 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%-- TODO: use value form bean. get info if user is logged in--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="base.jsp">
