@@ -4,10 +4,13 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+    <!-- makes url http://127.0.0.1:8080/ default for website -->
+    <default-context-path>/</default-context-path>
+
     <!-- login servlet -->
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>webapp.Login</servlet-class>
+        <servlet-class>main.webapp.Login</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -16,6 +19,5 @@
     </servlet-mapping>
 
     <!-- registration servlet -->
-
 
 </web-app>

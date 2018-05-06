@@ -1,4 +1,4 @@
-package webapp;
+package main.webapp;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +20,6 @@ public class Login extends HttpServlet {
 
         // TODO: add checking for login data from user.
 
-        request.getRequestDispatcher("main.jsp").forward(request, response);
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 }
