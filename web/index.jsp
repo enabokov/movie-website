@@ -1,8 +1,7 @@
 <%-- TODO: use value form bean. get info if user is logged in--%>
+<%@ page session="true"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="base.jsp">
-  <jsp:param name="loggedIn" value="false"/>
-</jsp:include>
+<jsp:include page="base.jsp"/>
 <html>
   <head>
     <title>Index</title>

@@ -1,4 +1,6 @@
-package main.webapp;
+package main.java.webapp;
+
+import main.java.beans.UserBean;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +11,7 @@ import java.io.IOException;
 
 @WebServlet(name = "Login")
 public class Login extends HttpServlet {
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // TODO: check if user logged in.
@@ -17,9 +20,16 @@ public class Login extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("name");
+        String password = request.getParameter("password");
 
-        // TODO: add checking for login data from user.
+        UserBean user = new UserBean();
 
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        user.setEmail(name);
+        user.setPassword(password);
+
+        String page = user.login();
+
+        request.getRequestDispatcher(page + ".jsp").forward(request, response);
     }
 }

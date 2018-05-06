@@ -10,7 +10,7 @@
     <!-- login servlet -->
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>main.webapp.Login</servlet-class>
+        <servlet-class>main.java.webapp.Login</servlet-class>
     </servlet>
 
     <servlet-mapping>
