@@ -23,7 +23,15 @@
                     <li><a href="#">About</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <c:choose>
+                        <c:when test="${email != null}">
+                            <li><a href="#">${email}</a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        </c:otherwise>
+                    </c:choose>
                 </ul>
             </div>
         </nav>

@@ -38,18 +38,13 @@ public class UserBean implements Serializable {
         return this.loggedIn;
     }
 
-    public String login() {
+    public Boolean login() {
         User user = userController.getUserByEmail(email);
 
-        if (user == null) {
-            return "index";  // TODO: register user in this case
-        }
-
-        if (user.getPassword().equals(this.password)) {
+        if (user != null && user.getPassword().equals(this.password)) {
             this.loggedIn = true;
-            return "index";
         }
 
-        return "login";
+        return this.isLoggedIn();
     }
 }

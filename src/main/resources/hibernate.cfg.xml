@@ -5,7 +5,7 @@
 
 <hibernate-configuration>
     <session-factory name="hibernate.cfg.xml">
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">update</property>
         <property name="hibernate.dialect">
             org.hibernate.dialect.PostgreSQL94Dialect
         </property>

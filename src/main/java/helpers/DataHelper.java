@@ -1,6 +1,5 @@
 package main.java.helpers;
 
-import main.java.entities.HibernateUtil;
 import main.java.entities.user.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
