@@ -17,6 +17,10 @@ public class UserController implements Serializable {
         dataHelper = DataHelper.getInstance();
     }
 
+    public Boolean saveUser(User user) {
+        return dataHelper.saveUser(user);
+    }
+
     public User getUserByEmail(String email) {
         return dataHelper.getUserByEmail(email);
     }

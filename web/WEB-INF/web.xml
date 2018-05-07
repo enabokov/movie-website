@@ -19,5 +19,14 @@
     </servlet-mapping>
 
     <!-- registration servlet -->
+    <servlet>
+        <servlet-name>Registration</servlet-name>
+        <servlet-class>main.java.webapp.Registration</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Registration</servlet-name>
+        <url-pattern>/registration</url-pattern>
+    </servlet-mapping>
 
 </web-app>

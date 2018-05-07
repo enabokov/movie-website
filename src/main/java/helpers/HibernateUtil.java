@@ -1,11 +1,11 @@
-package main.java.entities;
+package main.java.helpers;
 
 import main.java.entities.user.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-public class HibernateUtil {
+class HibernateUtil {
     private static SessionFactory sessionFactory ;
     static {
         Configuration configuration = new Configuration().configure();
@@ -14,7 +14,7 @@ public class HibernateUtil {
                 .applySettings(configuration.getProperties());
         sessionFactory = configuration.buildSessionFactory(builder.build());
     }
-    public static SessionFactory getSessionFactory() {
+    static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 }
