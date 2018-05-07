@@ -23,11 +23,17 @@ public class User implements java.io.Serializable {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "age", nullable = false)
+    private int age;
+
     @Column(name = "name")
     private String name;
 
     @Column(name = "surname")
     private String surname;
+
+    @Column(name = "sex")
+    private String sex;
 
     public int getId() {
         return id;
@@ -69,8 +75,25 @@ public class User implements java.io.Serializable {
         this.email = email;
     }
 
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
     @Override
     public String toString() {
-        return "User [id=" + this.id + ", email = " + this.email + ", name=" + this.name + "]";
+        return "User [id=" + this.id + ", email = " + this.email +
+                ", age = " + this.age + ", name=" + this.name + ", sex=" + this.sex + "]";
     }
 }

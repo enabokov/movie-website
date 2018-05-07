@@ -29,6 +29,7 @@
                             <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                         </c:when>
                         <c:otherwise>
+                            <li><a href="registration"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                             <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                         </c:otherwise>
                     </c:choose>

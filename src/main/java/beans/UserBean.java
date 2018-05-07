@@ -9,8 +9,15 @@ public class UserBean implements Serializable {
 
     private UserController userController;
 
+    // required
     private String email;
     private String password;
+    private int age;
+
+    // optional
+    private String name;
+    private String surname;
+    private String sex;
 
     private Boolean loggedIn = false;
 
@@ -34,6 +41,38 @@ public class UserBean implements Serializable {
         this.password = password;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
     public Boolean isLoggedIn() {
         return this.loggedIn;
     }
@@ -46,5 +85,16 @@ public class UserBean implements Serializable {
         }
 
         return this.isLoggedIn();
+    }
+
+    public Boolean save() {
+        User user = new User();
+        user.setEmail(this.email);
+        user.setPassword(this.password);
+        user.setName(this.name);
+        user.setSurname(this.surname);
+        user.setAge(this.age);
+        user.setSex(this.sex);
+        return userController.saveUser(user);
     }
 }
