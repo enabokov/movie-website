@@ -5,7 +5,7 @@
 
 <hibernate-configuration>
     <session-factory name="hibernate.cfg.xml">
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hbm2ddl.auto">create</property>
         <property name="hibernate.dialect">
             org.hibernate.dialect.PostgreSQL94Dialect
         </property>
@@ -17,6 +17,12 @@
         <property name="hibernate.connection.password">admin</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+
+        <mapping class="main.java.entities.user.User"/>
+        <mapping class="main.java.entities.movie.Status"/>
+        <mapping class="main.java.entities.movie.Language"/>
+        <mapping class="main.java.entities.movie.Genre"/>
+        <mapping class="main.java.entities.movie.Movie"/>
 
     </session-factory>
 </hibernate-configuration>
