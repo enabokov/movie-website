@@ -1,6 +1,7 @@
 package main.java.entities.movie;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(
@@ -9,13 +10,32 @@ import javax.persistence.*;
         @UniqueConstraint(columnNames = "language"),
     }
 )
-class Language {
+class Language implements Serializable {
+
+    private Integer id;
+    private String language;
+
+    public Language() {}
+
+    public Language(String language) {
+        this.language = language;
+    }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Integer id;
+    @GeneratedValue
+    public Integer getId() {
+        return id;
+    }
 
-    @Column(name = "language", nullable = false)
-    private String language;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
 }

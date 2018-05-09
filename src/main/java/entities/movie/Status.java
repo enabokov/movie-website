@@ -1,6 +1,7 @@
 package main.java.entities.movie;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(
@@ -9,13 +10,32 @@ import javax.persistence.*;
         @UniqueConstraint(columnNames = "status"),
     }
 )
-class Status {
+class Status implements Serializable {
+
+    private Integer id;
+    private String status;
+
+    public Status() {}
+
+    public Status(String status) {
+        this.status = status;
+    }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Integer id;
+    @GeneratedValue
+    public Integer getId() {
+        return id;
+    }
 
-    @Column(name = "status", nullable = false)
-    private String status;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
