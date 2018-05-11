@@ -3,46 +3,18 @@ package main.java.entities.movie;
 import javax.persistence.*;
 
 @Entity
-@Table(
-    name = "movies",
-    uniqueConstraints = {
-        @UniqueConstraint(columnNames = "title"),
-    }
-)
+@Table(name = "movies")
 public class Movie implements java.io.Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Integer id;
-
-    @Column(name = "title", nullable = false)
     private String title;
-
-    @Column(name = "description")
     private String description;
-
-    @ManyToOne
-    @JoinColumn(name = "status_id", referencedColumnName = "id")
-    private Status status;
-
-    @ManyToOne
-    @JoinColumn(name = "genre_id", referencedColumnName = "id")
-    private Genre genre;
-
-    @ManyToOne
-    @JoinColumn(name = "language_id", referencedColumnName = "id")
-    private Language language;
-
-    @Column(name = "rating")
     private Long rating;
-
-    @Column(name = "image")
     private String image;
-
-    @Column(name = "budget")
     private Long budget;
 
+    @Id
+    @GeneratedValue
     public Integer getId() {
         return id;
     }
@@ -65,30 +37,6 @@ public class Movie implements java.io.Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public Genre getGenre() {
-        return genre;
-    }
-
-    public void setGenre(Genre genre) {
-        this.genre = genre;
-    }
-
-    public Language getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(Language language) {
-        this.language = language;
     }
 
     public Long getRating() {

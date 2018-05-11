@@ -90,7 +90,7 @@ public class MovieBean implements Serializable {
         this.budget = budget;
     }
 
-    public List<Movie> getMovies(int limit, int offset) {
+    public List getMovies(int limit, int offset) {
         return this.movieController.getMovies(limit, offset);
     }
 }

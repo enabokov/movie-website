@@ -16,11 +16,13 @@ public class Index extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         MovieBean movieBean = new MovieBean();
+//        movieBean.setTitle("Avatar");
 
-        List<Movie> movies = movieBean.getMovies(15, 0);
-        for(Object obj : movies)
-            System.out.println(obj.toString());
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        List movies = movieBean.getMovies(15, 1);
+//        if (movies != null)
+//            for(Movie obj : movies)
+//                System.out.println(obj.toString());
+        request.getRequestDispatcher("WEB-INF/pages/index.jsp").forward(request, response);
 
     }
 

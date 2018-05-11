@@ -23,7 +23,7 @@ public class Login extends HttpServlet {
 
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("text/html");
-        request.getRequestDispatcher(page).forward(request, response);
+        request.getRequestDispatcher("WEB-INF/pages/" + page).forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,6 +48,6 @@ public class Login extends HttpServlet {
             request.setAttribute("error", "Email or password is not correct.");
         }
 
-        request.getRequestDispatcher(page).forward(request, response);
+        request.getRequestDispatcher("WEB-INF/pages/" + page).forward(request, response);
     }
 }

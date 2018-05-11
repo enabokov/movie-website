@@ -21,7 +21,7 @@ public class Registration extends HttpServlet {
 
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("text/html");
-        request.getRequestDispatcher(page).forward(request, response);
+        request.getRequestDispatcher("WEB-INF/pages/" + page).forward(request, response);
     }
 
     private Boolean checkInputParams(HttpServletRequest request) {
@@ -58,8 +58,7 @@ public class Registration extends HttpServlet {
         String page = "index.jsp";
         if (!this.checkInputParams(request)) {
             page = "registration.jsp";
-            request.getRequestDispatcher(page).forward(request, response);
-            return;
+            request.getRequestDispatcher("WEB-INF/pages/" + page).forward(request, response);
         }
 
         String email = request.getParameter("email");
@@ -81,13 +80,13 @@ public class Registration extends HttpServlet {
         if (!user.save()){
             page = "registration.jsp";
             request.setAttribute("error", "Something goes wrong. Try later.");
-            request.getRequestDispatcher(page).forward(request, response);
+            request.getRequestDispatcher("WEB-INF/pages/" + page).forward(request, response);
         }
 
         response.setStatus(HttpServletResponse.SC_OK);
         request.getSession().setAttribute("email_hash", email.hashCode());
         request.getSession().setAttribute("email", email);
 
-        request.getRequestDispatcher(page).forward(request, response);
+        request.getRequestDispatcher("WEB-INF/pages/" + page).forward(request, response);
     }
 }

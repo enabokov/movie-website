@@ -1,7 +1,7 @@
 package main.java.controllers;
 
-import main.java.entities.movie.Movie;
 import main.java.helpers.DataHelper;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -19,16 +19,23 @@ public class MovieController {
         dataHelper = DataHelper.getInstance();
     }
 
-    public List<Movie> getMovies(int limit, int offset) {
+    public List getMovies(int limit, int offset) {
         Session session = this.dataHelper.getSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction transaction = null;
+        List list = null;
 
-        List<Movie> list = (List<Movie>) session.createNativeQuery(
-        "SELECT * FROM movies m;"
-        ).setFirstResult(offset).setMaxResults(limit).getResultList();
-
-        transaction.commit();
-        session.close();
+        try {
+            transaction = session.getTransaction();
+            if (!transaction.isActive())
+                transaction.begin();
+            list = session.createQuery("from Movie mov").getResultList();
+            transaction.commit();
+        } catch (HibernateException exc) {
+            if (transaction != null)
+                transaction.rollback();
+            session.close();
+            System.out.println(exc.getCause().toString());
+        }
 
         return list;
     }

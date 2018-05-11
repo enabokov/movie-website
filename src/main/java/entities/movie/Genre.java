@@ -1,6 +1,7 @@
 package main.java.entities.movie;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(
@@ -9,13 +10,32 @@ import javax.persistence.*;
         @UniqueConstraint(columnNames = "genre"),
     }
 )
-class Genre {
+class Genre implements Serializable {
+
+    private Integer id;
+    private String genre;
+
+    public Genre() {}
+
+    public Genre(String genre) {
+        this.genre = genre;
+    }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Integer id;
+    @GeneratedValue
+    public Integer getId() {
+        return id;
+    }
 
-    @Column(name = "genre", nullable = false)
-    private String genre;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 }
