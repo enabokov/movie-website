@@ -1,7 +1,6 @@
 package beans;
 
 import controllers.MovieController;
-import entities.movie.Movie;
 
 import java.io.Serializable;
 import java.util.List;

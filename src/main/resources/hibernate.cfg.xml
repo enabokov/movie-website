@@ -19,7 +19,7 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
 
-        <mapping class="main.java.entities.user.User"/>
-        <mapping class="main.java.entities.movie.Movie"/>
+        <mapping class="entities.user.User"/>
+        <mapping class="entities.movie.Movie"/>
     </session-factory>
 </hibernate-configuration>

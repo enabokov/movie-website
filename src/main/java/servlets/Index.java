@@ -1,7 +1,6 @@
 package servlets;
 
 import beans.MovieBean;
-import entities.movie.Movie;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
