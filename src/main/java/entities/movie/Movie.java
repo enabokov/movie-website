@@ -3,7 +3,7 @@ package entities.movie;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "movies")
+@Table(name = "Movies")
 public class Movie implements java.io.Serializable {
 
     @Id
