@@ -1,7 +1,7 @@
-package main.java.beans;
+package beans;
 
-import main.java.controllers.UserController;
-import main.java.entities.user.User;
+import controllers.UserController;
+import entities.user.User;
 
 import java.io.Serializable;
 

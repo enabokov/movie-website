@@ -1,4 +1,4 @@
-package main.java.helpers;
+package helpers;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

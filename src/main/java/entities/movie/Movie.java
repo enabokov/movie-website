@@ -1,4 +1,4 @@
-package main.java.entities.movie;
+package entities.movie;
 
 import javax.persistence.*;
 
@@ -6,15 +6,25 @@ import javax.persistence.*;
 @Table(name = "movies")
 public class Movie implements java.io.Serializable {
 
-    private Integer id;
-    private String title;
-    private String description;
-    private Long rating;
-    private String image;
-    private Long budget;
-
     @Id
     @GeneratedValue
+    private Integer id;
+
+    @Column
+    private String title;
+
+    @Column
+    private String description;
+
+    @Column
+    private Long rating;
+
+    @Column
+    private String image;
+
+    @Column
+    private Long budget;
+
     public Integer getId() {
         return id;
     }

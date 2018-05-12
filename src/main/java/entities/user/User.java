@@ -1,4 +1,4 @@
-package main.java.entities.user;
+package entities.user;
 
 import javax.persistence.*;
 
@@ -12,12 +12,26 @@ import javax.persistence.*;
 )
 public class User implements java.io.Serializable {
 
+    @Id
+    @GeneratedValue
     private int id;
+
+    @Column
     private String email;
+
+    @Column
     private String password;
+
+    @Column
     private int age;
+
+    @Column
     private String name;
+
+    @Column
     private String surname;
+
+    @Column
     private String sex;
 
     public User() {}
@@ -27,8 +41,6 @@ public class User implements java.io.Serializable {
         this.password = password;
     }
 
-    @Id
-    @GeneratedValue
     public int getId() {
         return id;
     }

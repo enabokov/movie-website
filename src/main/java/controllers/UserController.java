@@ -1,7 +1,7 @@
-package main.java.controllers;
+package controllers;
 
-import main.java.helpers.DataHelper;
-import main.java.entities.user.User;
+import helpers.DataHelper;
+import entities.user.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

@@ -1,6 +1,6 @@
-package main.java.controllers;
+package controllers;
 
-import main.java.helpers.DataHelper;
+import helpers.DataHelper;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -28,7 +28,7 @@ public class MovieController {
             transaction = session.getTransaction();
             if (!transaction.isActive())
                 transaction.begin();
-            list = session.createQuery("from Movie mov").getResultList();
+            list = session.createQuery("from Movie m").getResultList();
             transaction.commit();
         } catch (HibernateException exc) {
             if (transaction != null)

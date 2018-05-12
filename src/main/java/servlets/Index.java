@@ -1,7 +1,7 @@
-package main.java.webapp;
+package servlets;
 
-import main.java.beans.MovieBean;
-import main.java.entities.movie.Movie;
+import beans.MovieBean;
+import entities.movie.Movie;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

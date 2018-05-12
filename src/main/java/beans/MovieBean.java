@@ -1,7 +1,7 @@
-package main.java.beans;
+package beans;
 
-import main.java.controllers.MovieController;
-import main.java.entities.movie.Movie;
+import controllers.MovieController;
+import entities.movie.Movie;
 
 import java.io.Serializable;
 import java.util.List;

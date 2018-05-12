@@ -1,7 +1,6 @@
-package main.java.webapp;
+package servlets;
 
-import main.java.beans.UserBean;
-import org.hibernate.Session;
+import beans.UserBean;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

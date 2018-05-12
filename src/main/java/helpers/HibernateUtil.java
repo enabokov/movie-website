@@ -1,6 +1,6 @@
-package main.java.helpers;
+package helpers;
 
-import main.java.entities.user.User;
+import entities.user.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;

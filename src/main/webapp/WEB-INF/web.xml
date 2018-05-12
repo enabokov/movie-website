@@ -3,13 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-
     <default-context-path>/</default-context-path>
 
      <!--makes url http://127.0.0.1:8080/ default for website -->
     <servlet>
         <servlet-name>Index</servlet-name>
-        <servlet-class>main.java.webapp.Index</servlet-class>
+        <servlet-class>servlets.Index</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -20,7 +19,7 @@
     <!-- login servlet -->
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>main.java.webapp.Login</servlet-class>
+        <servlet-class>servlets.Login</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -31,7 +30,7 @@
     <!-- registration servlet -->
     <servlet>
         <servlet-name>Registration</servlet-name>
-        <servlet-class>main.java.webapp.Registration</servlet-class>
+        <servlet-class>servlets.Registration</servlet-class>
     </servlet>
 
     <servlet-mapping>
