@@ -29,7 +29,7 @@ public class MovieController implements Serializable {
             transaction = session.getTransaction();
             if (!transaction.isActive())
                 transaction.begin();
-            list = session.createQuery("from Movie m").getResultList();
+            list = session.createQuery("from Movies m").getResultList();
             transaction.commit();
         } catch (HibernateException exc) {
             if (transaction != null)
