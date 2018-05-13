@@ -17,6 +17,7 @@ jdk:
 - oraclejdk8
 
 after_success:
-  - docker build -t $DOCKER_USERNAME/$IMAGE_NAME:$TRAVIS_BRANCH .
+  - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
+  - docker build -t $DOCKER_USERNAME/$IMAGE_NAME:BRANCH .
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-  - docker push $DOCKER_IMAGE_HOST/$IMAGE_NAME:$TRAVIS_BRANCH
+  - docker push $DOCKER_IMAGE_HOST/$IMAGE_NAME:BRANCH
