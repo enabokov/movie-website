@@ -4,10 +4,6 @@ env:
     - DOCKER_IMAGE_HOST=alexanderonbysh
     - IMAGE_NAME=movie-website
 
-sudo: enabled
-jdk:
-- oraclejdk8
-
 services:
   - postgresql
   - docker
@@ -16,9 +12,11 @@ before_script:
   - psql -c "CREATE DATABASE movie_website;" -U postgres
   - psql -c "CREATE USER admin WITH PASSWORD 'admin';" -U postgres
 
-before_install:
-  - docker build -t $DOCKER_USERNAME/$IMAGE_NAME .
+sudo: enabled
+jdk:
+- oraclejdk8
 
 after_success:
+  - docker build -t $DOCKER_USERNAME/$IMAGE_NAME .
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - docker push $DOCKER_IMAGE_HOST/$IMAGE_NAME:latest
