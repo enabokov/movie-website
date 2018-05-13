@@ -1,12 +1,23 @@
 language: java
+env:
+  global:
+    - DOCKER_IMAGE_HOST=alexanderonbysh
 
 services:
   - postgresql
+  - docker
 
 before_script:
   - psql -c "CREATE DATABASE movie_website;" -U postgres
   - psql -c "CREATE USER admin WITH PASSWORD 'admin';" -U postgres
 
+before_install:
+  - docker build -t movie-website .
+
 sudo: enabled
 jdk:
 - oraclejdk8
+
+after_success:
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  - docker push $DOCKER_IMAGE_HOST/movie-website:latest
