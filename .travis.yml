@@ -5,6 +5,7 @@ services:
 
 before_script:
   - psql -c "CREATE DATABASE movie_website;" -U postgres
+  - psql -c "CREATE USER admin WITH PASSWORD 'admin';" -U postgres
 
 sudo: enabled
 jdk:
