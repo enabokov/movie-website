@@ -8,13 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import ua.kpi.coursework.domain.Movie;
 import ua.kpi.coursework.domain.User;
 import ua.kpi.coursework.service.MovieServiceImpl;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 @Controller
 public class AppController {
@@ -62,8 +59,6 @@ public class AppController {
 
         return "index";
     }
-
-
 
     @GetMapping("/admin")
     public String adminIndex(){

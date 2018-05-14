@@ -9,8 +9,6 @@ import ua.kpi.coursework.domain.MovieRepository;
 import ua.kpi.coursework.domain.User;
 import ua.kpi.coursework.domain.UserRepository;
 
-import java.util.List;
-
 @Component
 public class DatabaseInitializer implements CommandLineRunner {
 
