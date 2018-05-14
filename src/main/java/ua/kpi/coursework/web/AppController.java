@@ -1,13 +1,20 @@
 package ua.kpi.coursework.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
 import ua.kpi.coursework.domain.User;
+import ua.kpi.coursework.service.MovieServiceImpl;
+
+import java.util.Calendar;
 
 @Controller
 public class AppController {
+
+    @Autowired
+    private MovieServiceImpl movieService;
 
     @ModelAttribute("user")
     public User emptyUserModel(){
@@ -21,10 +28,10 @@ public class AppController {
     }
 
     @GetMapping("/")
-    public String indexPage(){
+    public String indexPage(Model model) throws Exception {
+        model.addAttribute("moviesByYear", movieService.getByYear(Calendar.getInstance().get(Calendar.YEAR)));
         return "index";
     }
-
 
     @GetMapping("/admin")
     public String adminIndex(){
