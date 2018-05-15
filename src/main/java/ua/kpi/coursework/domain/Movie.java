@@ -14,12 +14,12 @@ public class Movie {
     private String title;
 
     private String description;
-    private Integer budget;
-    private Boolean isAdult;
-    private String language;
+    private String budget;
+    private Integer durability;
     private String genre;
     private Integer year;
     private String image;
+    private Float rating;
 
     public int getId() {
         return id;
@@ -45,28 +45,12 @@ public class Movie {
         this.description = description;
     }
 
-    public Integer getBudget() {
+    public String getBudget() {
         return budget;
     }
 
-    public void setBudget(Integer budget) {
+    public void setBudget(String budget) {
         this.budget = budget;
-    }
-
-    public Boolean getAdult() {
-        return isAdult;
-    }
-
-    public void setAdult(Boolean adult) {
-        isAdult = adult;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
     }
 
     public String getGenre() {
@@ -83,5 +67,29 @@ public class Movie {
 
     public void setYear(Integer year) {
         this.year = year;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Integer getDurability() {
+        return durability;
+    }
+
+    public void setDurability(Integer durability) {
+        this.durability = durability;
+    }
+
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
     }
 }
