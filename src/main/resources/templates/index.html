@@ -15,7 +15,8 @@
         <div class="row">
             <div class="col-sm-6 col-md-4" th:each="movie : ${moviesByYear}">
                 <div class="thumbnail">
-                    <img th:src="@{/images/default.png}" alt="ALT NAME"/>
+                    <!--<img th:src="@{/images/default.png}" alt="ALT NAME"/>-->
+                    <img th:src="${movie.getImage()}" alt="Image not found"/>
                     <div class="caption">
                         <h3 th:text="${movie.getTitle()}"></h3>
                         <p th:text="${movie.getGenre()}"></p>
