@@ -23,4 +23,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return userRepository.findByLogin(username).map(AuthUserDetails::new)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
+
 }

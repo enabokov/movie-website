@@ -1,5 +1,8 @@
 package ua.kpi.coursework.web;
 
+import javax.validation.Valid;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -20,13 +23,19 @@ public class AppController {
     private MovieServiceImpl movieService;
 
     @ModelAttribute("user")
-    public User emptyUserModel(){
+    public User emptyUserModel() {
         return new User();
     }
 
 
     @GetMapping("/login")
-    public String loginPage(){
+    public String loginPage() {
+        return "login";
+    }
+
+    @GetMapping("/login-error")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
         return "login";
     }
 
@@ -61,8 +70,13 @@ public class AppController {
     }
 
     @GetMapping("/admin")
-    public String adminIndex(){
+    public String adminIndex() {
         return "admin_index";
     }
+
+//    @GetMapping("/registration")
+//    public String registration(@ModelAttribute("user") @Valid) {
+//
+//    }
 
 }
