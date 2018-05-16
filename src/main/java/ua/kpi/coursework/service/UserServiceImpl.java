@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ua.kpi.coursework.domain.User;
-import ua.kpi.coursework.domain.UserRepository;
+import ua.kpi.coursework.repository.UserRepository;
 
 import java.util.Optional;
 

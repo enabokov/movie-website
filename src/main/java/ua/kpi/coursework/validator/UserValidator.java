@@ -1,4 +1,4 @@
-package ua.kpi.coursework.auth.validator;
+package ua.kpi.coursework.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,21 +26,20 @@ public class UserValidator implements Validator {
     public void validate(Object o, Errors errors) {
         User user = (User) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "NotEmpty");
         if (user.getLogin().length() < 6 || user.getLogin().length() > 32) {
-            errors.rejectValue("username", "Size.userForm.username");
+            errors.rejectValue("login", "Size.user.login");
         }
-        if (userService.findByUsername(user.getLogin()) != null) {
-            errors.rejectValue("username", "Duplicate.userForm.username");
+        if (userService.findByUsername(user.getLogin()) == null) {
+            errors.rejectValue("login", "Duplicate.user.login");
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
         if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
-            errors.rejectValue("password", "Size.userForm.password");
+            errors.rejectValue("password", "Size.user.password");
         }
-
         if (!user.getPasswordConfirm().equals(user.getPassword())) {
-            errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
+            errors.rejectValue("passwordConfirm", "Diff.user.passwordConfirm");
         }
     }
 }

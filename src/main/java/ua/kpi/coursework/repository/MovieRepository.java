@@ -1,8 +1,9 @@
-package ua.kpi.coursework.domain;
+package ua.kpi.coursework.repository;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import ua.kpi.coursework.domain.Movie;
 
 import java.util.List;
 
