@@ -32,14 +32,16 @@ public class AppController {
 
     @GetMapping("/genre/{genre}")
     public String movieByGenrePage(Model model, @PathVariable String genre, @RequestParam(required = false) Integer page) {
-        int limit = 5;  // how many movies displayed per page
+        int limit = 50;  // how many movies displayed per page
+        int pages = 15;
 
         if (page == null)
             page = 0;
 
+        int totalMovies = movieService.getTotalByGenre(genre);
         model.addAttribute("genre", genre);
         model.addAttribute("genres", movieService.getUniqueGenres());
-        model.addAttribute("totalMovies", movieService.getTotalByGenre(genre));
+        model.addAttribute("totalMovies", totalMovies > pages ? pages : totalMovies);
         model.addAttribute("moviesByGenre", movieService.getMoviesByGenre(genre, new PageRequest(page, limit)));
 
         return "moviesByGenre";
@@ -47,12 +49,12 @@ public class AppController {
 
     @GetMapping(value = "/")
     public String indexPage(Model model, @RequestParam(required = false) Integer page) {
-        int limit = 3;  // how many movies displayed per page
+        int limit = 50;  // how many movies displayed per page
 
         if (page == null)
             page = 0;
 
-        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int year = Calendar.getInstance().get(Calendar.YEAR) - 1;
         model.addAttribute("genres", movieService.getUniqueGenres());
         model.addAttribute("totalMovies", Math.ceil(movieService.getTotalByYear(year) / limit));
         model.addAttribute("moviesByYear", movieService.getMoviesByYear(year, new PageRequest(page, limit)));
