@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ua.kpi.coursework.domain.Movie;
-import ua.kpi.coursework.domain.MovieRepository;
+import ua.kpi.coursework.repository.MovieRepository;
 
 import java.util.List;
 

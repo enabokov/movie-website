@@ -1,12 +1,13 @@
-package ua.kpi.coursework.web;
+package ua.kpi.coursework;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-import ua.kpi.coursework.domain.MovieRepository;
+import ua.kpi.coursework.domain.Movie;
+import ua.kpi.coursework.repository.MovieRepository;
 import ua.kpi.coursework.domain.User;
-import ua.kpi.coursework.domain.UserRepository;
+import ua.kpi.coursework.repository.UserRepository;
 
 @Component
 public class DatabaseInitializer implements CommandLineRunner {

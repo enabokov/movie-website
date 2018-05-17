@@ -1,6 +1,7 @@
-package ua.kpi.coursework.domain;
+package ua.kpi.coursework.repository;
 
 import org.springframework.data.repository.CrudRepository;
+import ua.kpi.coursework.domain.User;
 
 import java.util.Optional;
 
