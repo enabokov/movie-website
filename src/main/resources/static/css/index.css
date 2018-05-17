@@ -3,8 +3,12 @@
     flex-wrap: wrap;
 }
 .thumbnail img {
-    height: 242px;
+    height: 260px;
     width: 200px;
+}
+
+.thumbnail.caption {
+    height: auto;
 }
 
 .glyphicon-thumbs-up {
@@ -37,4 +41,15 @@
 .active, .btn:hover {
     background-color: #666;
     color: white;
+}
+
+.title {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.rating {
+    display: inline-block;
+    float: right;
 }
