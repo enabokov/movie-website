@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">>
-<head>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}"/>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}"/>
 <body>
 <div th:fragment="navbar (genres)">
     <nav class="navbar navbar-inverse">
@@ -22,23 +19,15 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a th:href="@{/registration}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                <li><a th:href="@{/login}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-            </ul>
-            <div sec:authorize="isAnonymous()">
-                Anonymos
-            </div>
-            <div sec:authorize="isAuthenticated()">
-                This content is only shown to authenticated users.
-            </div>
-            <div sec:authorize="hasRole('ROLE_ADMIN')">
-                This content is only shown to administrators.
-            </div>
-            <div sec:authorize="hasRole('ROLE_USER')">
-                This content is only shown to users.
-            </div>
-        </div>
-    </nav>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/account}"><span
+                        class="glyphicon glyphicon-user"></span>Account</a></li>
+                <li sec:authorize="isAnonymous()"><a th:href="@{/registration}"><span
+                        class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li sec:authorize="isAnonymous()"><a th:href="@{/login}"><span
+                        class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+</div>
+</nav>
 </div>
 </body>
 </html>
