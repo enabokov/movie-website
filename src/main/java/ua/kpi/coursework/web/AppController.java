@@ -6,10 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ua.kpi.coursework.domain.Movie;
 import ua.kpi.coursework.domain.User;
 import ua.kpi.coursework.service.MovieServiceImpl;
 import ua.kpi.coursework.service.SecurityService;
 import ua.kpi.coursework.service.UserService;
+import ua.kpi.coursework.validator.MovieValidator;
 import ua.kpi.coursework.validator.UserValidator;
 
 import java.util.Calendar;
@@ -21,13 +23,15 @@ public class AppController {
     private final UserValidator userValidator;
     private final UserService userService;
     private final SecurityService securityService;
+    private final MovieValidator movieValidator;
 
     @Autowired
-    public AppController(MovieServiceImpl movieService, UserValidator userValidator, UserService userService, SecurityService securityService) {
+    public AppController(MovieServiceImpl movieService, UserValidator userValidator, UserService userService, SecurityService securityService, MovieValidator movieValidator) {
         this.movieService = movieService;
         this.userValidator = userValidator;
         this.userService = userService;
         this.securityService = securityService;
+        this.movieValidator = movieValidator;
     }
 
     @ModelAttribute("user")
@@ -102,6 +106,26 @@ public class AppController {
         userService.save(userForm);
 
         securityService.autologin(userForm.getLogin(), userForm.getPasswordConfirm());
+
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/addMovie", method = RequestMethod.GET)
+    public String addMovie(Model model) {
+        model.addAttribute("movie", new Movie());
+
+        return "add_movie";
+    }
+
+    @RequestMapping(value = "/addMovie", method = RequestMethod.POST)
+    public String addMovie(@ModelAttribute("movie") Movie movieForm, BindingResult bindingResult, Model model) {
+        movieValidator.validate(movieForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "addMovie";
+        }
+
+        movieService.save(movieForm);
 
         return "redirect:/";
     }

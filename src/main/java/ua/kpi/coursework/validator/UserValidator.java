@@ -6,6 +6,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import ua.kpi.coursework.domain.User;
+import ua.kpi.coursework.repository.UserRepository;
 import ua.kpi.coursework.service.UserService;
 
 @Component
@@ -13,7 +14,7 @@ public class UserValidator implements Validator {
     private final UserService userService;
 
     @Autowired
-    public UserValidator(UserService userService) {
+    public UserValidator(UserService userService, UserRepository userRepository) {
         this.userService = userService;
     }
 
