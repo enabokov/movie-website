@@ -6,40 +6,29 @@
     <meta charset="UTF-8"/>
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
-    <title>Main page</title>
+    <title>MovieLoft</title>
 </head>
 <body>
     <nav th:replace="navbar :: navbar (genres=${genres})"></nav>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6 col-md-4" th:each="movie : ${moviesByYear}">
-                <div class="thumbnail">
-                    <img th:src="${movie.getImage()}" alt="Image not found"/>
-                    <div class="caption">
-                        <h4 class="title" th:text="${movie.getTitle()}"></h4>
-                        <p th:text="${movie.getGenre()}"></p>
-                        <div class="col-sm-6">
-                            <p>
-                                <span class="glyphicon glyphicon-thumbs-up"></span>
-                                <span class="glyphicon glyphicon-thumbs-down"></span>
-                            </p>
-                        </div>
-                        <div class="col-sm-6">
-                            <span class="badge pull-right" style="background-color:teal" th:text="${movie.getRating()}"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div th:replace="cards :: cards (moviesByField=${moviesByYear})"></div>
 
     <div class="container">
-        <ul class="pagination">
-            <li><a href="#"><span aria-hidden="true">&laquo;</span></a></li>
-            <li><a th:href="@{/(page=${counter})}" th:each="counter : ${#numbers.sequence(0, totalMovies)}" th:text="${counter + 1}"></a></li>
-            <li><a href="#"><span aria-hidden="true">&raquo;</span></a></li>
-        </ul>
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <span class="page-link" aria-hidden="true">Previous</span>
+                </li>
+                <th:block th:each="counter : ${#numbers.sequence(0, totalMovies)}">
+                    <li class="page-item" th:classappend="${currentPage == counter} ? active">
+                        <a class="page-link" th:href="@{/(page=${counter})}" th:text="${counter + 1}"></a>
+                    </li>
+                </th:block>
+                <li class="page-item">
+                    <span class="page-link" aria-hidden="true">Next</span>
+                </li>
+            </ul>
+        </nav>
     </div>
 </body>
 </html>

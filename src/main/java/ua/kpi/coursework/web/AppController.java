@@ -58,6 +58,7 @@ public class AppController {
         int totalMovies = movieService.getTotalByGenre(genre);
         model.addAttribute("genre", genre);
         model.addAttribute("genres", movieService.getUniqueGenres());
+        model.addAttribute("currentPage", page);
         model.addAttribute("totalMovies", Math.ceil(totalMovies / limit) > pages ? pages : Math.ceil(totalMovies / limit));
         model.addAttribute("moviesByGenre", movieService.getMoviesByGenre(genre, new PageRequest(page, limit)));
 
@@ -73,6 +74,7 @@ public class AppController {
 
         int year = Calendar.getInstance().get(Calendar.YEAR) - 1;
         model.addAttribute("genres", movieService.getUniqueGenres());
+        model.addAttribute("currentPage", page);
         model.addAttribute("totalMovies", Math.ceil(movieService.getTotalByYear(year) / limit));
         model.addAttribute("moviesByYear", movieService.getMoviesByYear(year, new PageRequest(page, limit)));
 

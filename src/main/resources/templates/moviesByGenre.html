@@ -11,34 +11,25 @@
 <body>
     <nav th:replace="navbar :: navbar (genres=${genres})"></nav>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6 col-md-4" th:each="movie : ${moviesByGenre}">
-                <div class="thumbnail">
-                    <img th:src="${(movie.getImage() != null ? movie.getImage() : '/images/default.png')}" alt="Image not found"/>
-                    <div class="caption">
-                        <h4 class="title" th:text="${movie.getTitle()}"></h4>
-                        <p th:text="${movie.getGenre()}"></p>
-                        <p>
-                            <span class="glyphicon glyphicon-thumbs-up"></span>
-                            <span class="glyphicon glyphicon-thumbs-down"></span>
-                        </p>
-                        <div class="col-sm-6">
-                            <span class="badge pull-right" style="background-color:teal" th:text="${movie.getRating()}"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div th:replace="cards :: cards (moviesByField=${moviesByGenre})"></div>
 
     <div class="container">
-        <ul class="pagination">
-            <li><a href="#"><span aria-hidden="true">&laquo;</span></a></li>
-            <li><a
-                th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
-                th:href="${urlBuilder.replaceQueryParam('page', counter).toUriString()}" th:each="counter : ${#numbers.sequence(0, totalMovies)}" th:text="${counter + 1}"></a></li>
-            <li><a href="#"><span aria-hidden="true">&raquo;</span></a></li>
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <span class="page-link" aria-hidden="true">Previous</span>
+            </li>
+            <th:block th:each="counter : ${#numbers.sequence(0, totalMovies)}">
+                <li class="page-item" th:classappend="${currentPage == counter} ? active">
+                    <a class="page-link"
+                       th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
+                       th:href="${urlBuilder.replaceQueryParam('page', counter).toUriString()}"
+                       th:text="${counter + 1}">
+                    </a>
+                </li>
+            </th:block>
+            <li class="page-item">
+                <span class="page-link" aria-hidden="true">Next</span>
+            </li>
         </ul>
     </div>
 </body>
