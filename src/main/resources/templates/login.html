@@ -1,24 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <title>Coursework</title>
-    <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-    <!--Let browser know website is optimized for mobile-->
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
+    <title>Login page</title>
 </head>
 <body>
-
-<div class="row">
-    <form action="/login" th:action="@{/login}" method="post">
-        <label> Login </label>
-        <input class="validate" type="text" name="username"/>
-        <label> Password </label>
-        <input type="password" name="password"/>
-        <div><input class="btn" type="submit" value="Sign In"/></div>
-    </form>
-</div>
-
+<h1>Login page</h1>
+<p th:if="${loginError}" class="error">Wrong user or password</p>
+<form th:action="@{/login}" method="post">
+    <label for="username">Username</label>:
+    <input type="text" id="username" name="username" autofocus="autofocus"/> <br/>
+    <label for="password">Password</label>:
+    <input type="password" id="password" name="password"/> <br/>
+    <input type="submit" value="Log in"/>
+</form>
 </body>
 </html>
