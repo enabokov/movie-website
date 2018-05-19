@@ -1,6 +1,5 @@
 package ua.kpi.coursework.web;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -59,7 +58,7 @@ public class AppController {
         int totalMovies = movieService.getTotalByGenre(genre);
         model.addAttribute("genre", genre);
         model.addAttribute("genres", movieService.getUniqueGenres());
-        model.addAttribute("totalMovies", totalMovies > pages ? pages : totalMovies);
+        model.addAttribute("totalMovies", Math.ceil(totalMovies / limit) > pages ? pages : Math.ceil(totalMovies / limit));
         model.addAttribute("moviesByGenre", movieService.getMoviesByGenre(genre, new PageRequest(page, limit)));
 
         return "moviesByGenre";
