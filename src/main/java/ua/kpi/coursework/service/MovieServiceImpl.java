@@ -18,10 +18,6 @@ public class MovieServiceImpl implements MovieService {
         this.movieRepository = movieRepository;
     }
 
-    public Integer getTotalByYear(Integer year) {
-        return movieRepository.countMoviesByYear(year);
-    }
-
     @Override
     public List<Movie> getMoviesByYear(Integer year, Pageable limit) {
         return movieRepository.findMoviesByYear(year, limit);
@@ -30,6 +26,10 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<Movie> getMoviesByGenre(String genre, Pageable limit) {
         return movieRepository.findMoviesByGenre(genre, limit);
+    }
+
+    public Integer getTotalByYear(Integer year) {
+        return movieRepository.countMoviesByYear(year);
     }
 
     @Override
@@ -45,6 +45,11 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<String> getUniqueGenres() {
         return movieRepository.findDistinctGenre();
+    }
+
+    @Override
+    public List<Integer> getUniqueYears() {
+        return movieRepository.findDistinctYear();
     }
 
     @Override

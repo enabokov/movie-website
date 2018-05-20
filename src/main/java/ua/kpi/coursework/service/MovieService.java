@@ -16,7 +16,10 @@ public interface MovieService {
 
     List<String> getUniqueGenres();
 
+    List<Integer> getUniqueYears();
+
     Movie getMovieById(Integer id);
+
 
     void save(Movie movie);
 }

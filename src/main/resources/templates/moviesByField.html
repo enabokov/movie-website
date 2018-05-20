@@ -11,7 +11,7 @@
 <body>
     <nav th:replace="navbar :: navbar (genres=${genres})"></nav>
 
-    <div th:replace="cards :: cards (moviesByField=${moviesByGenre})"></div>
+    <div th:replace="cards :: cards (moviesByField=${moviesByField})"></div>
 
     <div class="container">
         <ul class="pagination justify-content-center">
