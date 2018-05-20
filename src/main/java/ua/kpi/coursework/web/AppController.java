@@ -2,6 +2,7 @@ package ua.kpi.coursework.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,7 @@ import ua.kpi.coursework.validator.MovieValidator;
 import ua.kpi.coursework.validator.UserValidator;
 
 import java.util.Calendar;
+import java.util.Optional;
 
 @Controller
 public class AppController {
@@ -113,6 +115,21 @@ public class AppController {
         model.addAttribute("moviesByYear", movieService.getMoviesByYear(year, new PageRequest(page, limit)));
 
         return "index";
+    }
+
+    @GetMapping("/watch-later")
+    public String watchLater(Model model, Authentication authentication) {
+        String name = authentication.getName();
+        Optional<User> user = this.userService.findByUsername(name);
+
+        model.addAttribute("genres", movieService.getUniqueGenres());
+//        model.addAttribute("moviesWatchLater", user.);
+        return "moviesWatchLater";
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public String watchLater() {
+        return "hello";
     }
 
     @GetMapping("/admin")
