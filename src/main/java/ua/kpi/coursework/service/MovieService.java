@@ -16,5 +16,7 @@ public interface MovieService {
 
     List<String> getUniqueGenres();
 
+    Movie getMovieById(Integer id);
+
     void save(Movie movie);
 }
