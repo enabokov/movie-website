@@ -12,10 +12,10 @@
         <div class="collapse navbar-collapse" id="navbarTogglerMain">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item dropdown">
-                    <button class="btn btn-outline-warning dropdown-toggle btnGenre" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-outline-warning dropdown-toggle btnGenre" type="button" id="dropdownGenreButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Genre
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <div class="dropdown-menu" aria-labelledby="dropdownGenreButton">
                         <a class="dropdown-item"
                            th:href="@{/genre/__${genre}__}"
                            th:each="genre : ${genres}"
@@ -23,9 +23,22 @@
                         </a>
                     </div>
                 </li>
-                <li class="active" sec:authorize="isAuthenticated()"><a href="/addMovie">Add movie</a></li>
+                <li class="nav-item dropdown">
+                    <button class="btn btn-outline-warning dropdown-toggle btnGenre" type="button" id="dropdownYearButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Year
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownYearButton">
+                        <a class="dropdown-item"
+                           th:href="@{/year/__${year}__}"
+                           th:each="year : ${years}"
+                           th:text="${year}">
+                        </a>
+                    </div>
+                </li>
             </ul>
             <ul class="navbar-nav navbar-right">
+                <li class="nav-item active create-movie" sec:authorize="isAuthenticated()">
+                    <a role="button" class="btn btn-outline-success" href="/addMovie">Add movie</a></li>
                 <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                     <button class="btn btn-outline-info dropdown-toggle"
                             type="button" id="dropdownAccountButton" data-toggle="dropdown"

@@ -62,11 +62,31 @@ public class AppController {
         int totalMovies = movieService.getTotalByGenre(genre);
         model.addAttribute("genre", genre);
         model.addAttribute("genres", movieService.getUniqueGenres());
+        model.addAttribute("years", movieService.getUniqueYears());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalMovies", Math.ceil(totalMovies / limit) > pages ? pages : Math.ceil(totalMovies / limit));
-        model.addAttribute("moviesByGenre", movieService.getMoviesByGenre(genre, new PageRequest(page, limit)));
+        model.addAttribute("moviesByField", movieService.getMoviesByGenre(genre, new PageRequest(page, limit)));
 
-        return "moviesByGenre";
+        return "moviesByField";
+    }
+
+    @GetMapping("/year/{year}")
+    public String movieByYearPage(Model model, @PathVariable Integer year, @RequestParam(required = false) Integer page) {
+        int limit = 50;  // how many movies displayed per page
+        int pages = 15;
+
+        if (page == null)
+            page = 0;
+
+        int totalMovies = movieService.getTotalByYear(year);
+        model.addAttribute("year", year);
+        model.addAttribute("genres", movieService.getUniqueGenres());
+        model.addAttribute("years", movieService.getUniqueYears());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalMovies", Math.ceil(totalMovies / limit) > pages ? pages : Math.ceil(totalMovies / limit));
+        model.addAttribute("moviesByField", movieService.getMoviesByYear(year, new PageRequest(page, limit)));
+
+        return "moviesByField";
     }
 
     @GetMapping(value = "/")
@@ -78,6 +98,7 @@ public class AppController {
 
         int year = Calendar.getInstance().get(Calendar.YEAR) - 1;
         model.addAttribute("genres", movieService.getUniqueGenres());
+        model.addAttribute("years", movieService.getUniqueYears());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalMovies", Math.ceil(movieService.getTotalByYear(year) / limit));
         model.addAttribute("moviesByYear", movieService.getMoviesByYear(year, new PageRequest(page, limit)));
