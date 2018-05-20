@@ -41,13 +41,15 @@ public class AppController {
 
 
     @GetMapping("/login")
-    public String loginPage() {
+    public String loginPage(Model model) {
+        model.addAttribute("genres", movieService.getUniqueGenres());
         return "login";
     }
 
     @GetMapping("/login-error")
     public String loginError(Model model) {
         model.addAttribute("loginError", true);
+        model.addAttribute("genres", movieService.getUniqueGenres());
         return "login";
     }
 
@@ -89,6 +91,13 @@ public class AppController {
         return "moviesByField";
     }
 
+    @GetMapping("/movie/{id}")
+    public String movieDetailView(Model model, @PathVariable Integer id) {
+        model.addAttribute("movie", movieService.getMovieById(id));
+        model.addAttribute("genres", movieService.getUniqueGenres());
+        return "movie_detailed_view";
+    }
+
     @GetMapping(value = "/")
     public String indexPage(Model model, @RequestParam(required = false) Integer page) {
         int limit = 50;  // how many movies displayed per page
@@ -114,7 +123,7 @@ public class AppController {
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("user", new User());
-
+        model.addAttribute("genres", movieService.getUniqueGenres());
         return "registration";
     }
 
@@ -136,6 +145,7 @@ public class AppController {
     @RequestMapping(value = "/addMovie", method = RequestMethod.GET)
     public String addMovie(Model model) {
         model.addAttribute("movie", new Movie());
+        model.addAttribute("genres", movieService.getUniqueGenres());
 
         return "add_movie";
     }

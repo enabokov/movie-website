@@ -18,5 +18,8 @@ public interface MovieService {
 
     List<Integer> getUniqueYears();
 
+    Movie getMovieById(Integer id);
+
+
     void save(Movie movie);
 }

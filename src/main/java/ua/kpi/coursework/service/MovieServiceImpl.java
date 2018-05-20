@@ -33,6 +33,11 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public Movie getMovieById(Integer id) {
+        return movieRepository.findMovieById(id);
+    }
+
+    @Override
     public Integer getTotalByGenre(String genre) {
         return movieRepository.countMoviesByGenre(genre);
     }
