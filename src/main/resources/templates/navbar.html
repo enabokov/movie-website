@@ -23,6 +23,7 @@
                         </a>
                     </div>
                 </li>
+                <li class="active" sec:authorize="isAuthenticated()"><a href="/addMovie">Add movie</a></li>
             </ul>
             <ul class="navbar-nav navbar-right">
                 <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
