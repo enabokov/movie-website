@@ -69,6 +69,13 @@ public class AppController {
         return "moviesByGenre";
     }
 
+    @GetMapping("/movie/{id}")
+    public String movieDetailView(Model model, @PathVariable Integer id) {
+        model.addAttribute("movie", movieService.getMovieById(id));
+        model.addAttribute("genres", movieService.getUniqueGenres());
+        return "movie_detailed_view";
+    }
+
     @GetMapping(value = "/")
     public String indexPage(Model model, @RequestParam(required = false) Integer page) {
         int limit = 50;  // how many movies displayed per page
