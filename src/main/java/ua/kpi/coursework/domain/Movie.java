@@ -1,6 +1,7 @@
 package ua.kpi.coursework.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Table(name = "movie_table")
 @Entity
@@ -20,6 +21,14 @@ public class Movie {
     private Integer year;
     private String image;
     private Float rating;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable
+    private Set<User> usersWatchLater;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable
+    private Set<User> usersFavorites;
 
     public int getId() {
         return id;
@@ -91,5 +100,21 @@ public class Movie {
 
     public void setRating(Float rating) {
         this.rating = rating;
+    }
+
+    public Set<User> getUsersWatchLater() {
+        return usersWatchLater;
+    }
+
+    public void setUsersWatchLater(Set<User> usersWatchLater) {
+        this.usersWatchLater = usersWatchLater;
+    }
+
+    public Set<User> getUsersFavorites() {
+        return usersFavorites;
+    }
+
+    public void setUsersFavorites(Set<User> usersFavorites) {
+        this.usersFavorites = usersFavorites;
     }
 }

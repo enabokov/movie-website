@@ -2,6 +2,7 @@ package ua.kpi.coursework.domain;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Table(name = "user_table")
 @Entity
@@ -16,6 +17,11 @@ public class User {
     private String password;
     private String passwordConfirm;
 
+    @ManyToMany(mappedBy = "usersWatchLater")
+    private Set<Movie> moviesWatchLater;
+
+    @ManyToMany(mappedBy = "usersFavorites")
+    private Set<Movie> moviesFavorites;
 
     public int getId() {
         return id;
@@ -48,5 +54,13 @@ public class User {
 
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
+    }
+
+    public Set<Movie> getMoviesWatchLater() {
+        return moviesWatchLater;
+    }
+
+    public void setMoviesWatchLater(Set<Movie> moviesWatchLater) {
+        this.moviesWatchLater = moviesWatchLater;
     }
 }
