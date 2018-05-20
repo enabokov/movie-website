@@ -23,7 +23,5 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
 
     List<Movie> findMoviesByGenre(String genre, Pageable pageable);
 
-    Integer countMoviesByGenre(String genre);
-
     Movie findMovieById(Integer id);
 }
