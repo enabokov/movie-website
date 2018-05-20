@@ -1,7 +1,16 @@
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 
+<head>
+    <div th:include="base :: head"></div>
+
+    <meta charset="UTF-8"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/forms.css}"/>
+</head>
 
 <body>
+<nav th:replace="navbar :: navbar (genres=${genres})"></nav>
 <h1 th:text="Registration">form</h1>
 <form th:action="@{/addMovie}" th:object="${movie}" method="POST">
 
