@@ -53,6 +53,11 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public List<Movie> getMoviesByTitleLike(String title, Pageable limit) {
+        return movieRepository.findMoviesByTitleContainingIgnoreCase(title, limit);
+    }
+
+    @Override
     public void save(Movie movie) {
         movie.setDescription("Desc");
         movie.setBudget("0");

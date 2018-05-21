@@ -15,7 +15,10 @@ import ua.kpi.coursework.service.UserService;
 import ua.kpi.coursework.validator.MovieValidator;
 import ua.kpi.coursework.validator.UserValidator;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -66,7 +69,6 @@ public class AppController {
         int totalMovies = movieService.getTotalByGenre(genre);
         model.addAttribute("genre", genre);
         model.addAttribute("genres", movieService.getUniqueGenres());
-        model.addAttribute("years", movieService.getUniqueYears());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalMovies", Math.ceil(totalMovies / limit) > pages ? pages : Math.ceil(totalMovies / limit));
         model.addAttribute("moviesByField", movieService.getMoviesByGenre(genre, new PageRequest(page, limit)));
@@ -85,7 +87,6 @@ public class AppController {
         int totalMovies = movieService.getTotalByYear(year);
         model.addAttribute("year", year);
         model.addAttribute("genres", movieService.getUniqueGenres());
-        model.addAttribute("years", movieService.getUniqueYears());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalMovies", Math.ceil(totalMovies / limit) > pages ? pages : Math.ceil(totalMovies / limit));
         model.addAttribute("moviesByField", movieService.getMoviesByYear(year, new PageRequest(page, limit)));
@@ -100,7 +101,27 @@ public class AppController {
         return "movie_detailed_view";
     }
 
-    @GetMapping(value = "/")
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String searchMovieByTitle(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam(required = false) Integer page) {
+        String title = request.getParameter("title");
+        int totalMovies;
+        int limit = 10;  // how many movies displayed per page
+        int pages = 15;
+
+        if (page == null)
+            page = 0;
+
+        List<Movie> list = this.movieService.getMoviesByTitleLike(title, new PageRequest(0, limit));
+        totalMovies = list.size();
+        model.addAttribute("genres", movieService.getUniqueGenres());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalMovies", Math.ceil(totalMovies / limit) > pages ? pages : Math.ceil(totalMovies / limit));
+        model.addAttribute("moviesByField", list);
+
+        return "moviesByField";
+    }
+
+    @GetMapping("/")
     public String indexPage(Model model, @RequestParam(required = false) Integer page) {
         int limit = 50;  // how many movies displayed per page
 
@@ -109,7 +130,6 @@ public class AppController {
 
         int year = Calendar.getInstance().get(Calendar.YEAR) - 1;
         model.addAttribute("genres", movieService.getUniqueGenres());
-        model.addAttribute("years", movieService.getUniqueYears());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalMovies", Math.ceil(movieService.getTotalByYear(year) / limit));
         model.addAttribute("moviesByYear", movieService.getMoviesByYear(year, new PageRequest(page, limit)));
