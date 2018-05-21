@@ -19,7 +19,7 @@ body {
     color: darkblue;
 }
 
-.btnGenre {
+.btnNoLine {
     border: none;
     outline: none;
 }
@@ -41,5 +41,9 @@ body {
 }
 
 .create-movie {
+    margin-right: 10px;
+}
+
+.search {
     margin-right: 10px;
 }

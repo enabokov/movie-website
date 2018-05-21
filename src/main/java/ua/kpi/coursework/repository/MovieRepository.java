@@ -15,7 +15,7 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
 
     Integer countMoviesByGenre(String genre);
 
-    @Query("SELECT DISTINCT m.genre FROM Movie m")
+    @Query("SELECT DISTINCT m.genre FROM Movie m ORDER BY m.genre")
     List<String> findDistinctGenre();
 
     @Query("SELECT DISTINCT m.year FROM Movie m ORDER BY m.year DESC")
@@ -24,4 +24,6 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
     List<Movie> findMoviesByGenre(String genre, Pageable pageable);
 
     Movie findMovieById(Integer id);
+
+    List<Movie> findMoviesByTitleContainingIgnoreCase(String title, Pageable limit);
 }

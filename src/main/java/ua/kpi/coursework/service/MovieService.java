@@ -20,6 +20,7 @@ public interface MovieService {
 
     Movie getMovieById(Integer id);
 
+    List<Movie> getMoviesByTitleLike(String title, Pageable limit);
 
     void save(Movie movie);
 }
