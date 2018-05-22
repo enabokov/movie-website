@@ -5,14 +5,16 @@
 <div th:fragment="navbar (genres)">
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
         <a class="navbar-brand" th:href="@{/}">MOVIELOFT</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerMain" aria-controls="navbarTogglerMain" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerMain"
+                aria-controls="navbarTogglerMain" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarTogglerMain">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item dropdown">
-                    <button class="btn btn-outline-warning dropdown-toggle btnNoLine" type="button" id="dropdownGenreButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-outline-warning dropdown-toggle btnNoLine" type="button"
+                            id="dropdownGenreButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Genre
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownGenreButton">
@@ -24,7 +26,8 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <button class="btn btn-outline-warning dropdown-toggle btnNoLine" type="button" id="dropdownYearButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-outline-warning dropdown-toggle btnNoLine" type="button"
+                            id="dropdownYearButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Year
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownYearButton">
@@ -37,8 +40,11 @@
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0 search" method="get" th:action="@{/search}">
-                <input class="form-control mr-sm-2" type="search" name="title" placeholder="Search" aria-label="Search"/>
-                <button class="btn btn-outline-primary my-2 my-sm-0 btnNoLine" type="submit"><i class="fas fa-search"></i> Search</button>
+                <input class="form-control mr-sm-2" type="search" name="title" placeholder="Search"
+                       aria-label="Search"/>
+                <button class="btn btn-outline-primary my-2 my-sm-0 btnNoLine" type="submit"><i
+                        class="fas fa-search"></i> Search
+                </button>
             </form>
             <ul class="navbar-nav navbar-right">
                 <li class="nav-item active create-movie" sec:authorize="isAuthenticated()">
@@ -50,10 +56,12 @@
                         <i class="far fa-address-book"></i> Account
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownAccountButton">
-                        <a class="dropdown-item" role="button" th:href="@{/watch-later}"><i class="far fa-clock"></i> Watch list</a>
-                        <a class="dropdown-item" role="button" href="#"><i class="fa fa-plus"></i> Favourites</a>
+                        <a class="dropdown-item" role="button" th:href="@{/watch-later}"><i class="far fa-clock"></i>
+                            Watch list</a>
+                        <a class="dropdown-item" role="button" th:href="@{/favorites}"><i class="fa fa-plus"></i>
+                            Favourites</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" role="button" href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        <a class="dropdown-item" role="button" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </li>
                 <li class="nav-item" sec:authorize="isAnonymous()">
@@ -67,9 +75,9 @@
                        aria-pressed="true" th:href="@{/login}">
                         <i class="fas fa-sign-in-alt"></i> Login</a>
                 </li>
-        </ul>
-</div>
-</nav>
+            </ul>
+        </div>
+    </nav>
 </div>
 </body>
 </html>

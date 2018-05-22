@@ -60,6 +60,10 @@ public class User {
         return moviesWatchLater;
     }
 
+    public Set<Movie> getMoviesFavorites() {
+        return moviesFavorites;
+    }
+
     public void setMoviesWatchLater(Set<Movie> moviesWatchLater) {
         this.moviesWatchLater = moviesWatchLater;
     }

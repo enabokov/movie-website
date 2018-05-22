@@ -3,12 +3,16 @@ package ua.kpi.coursework.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.kpi.coursework.domain.Movie;
+import ua.kpi.coursework.domain.Share;
 import ua.kpi.coursework.domain.User;
+import ua.kpi.coursework.repository.ShareRepository;
 import ua.kpi.coursework.service.MovieServiceImpl;
 import ua.kpi.coursework.service.SecurityService;
 import ua.kpi.coursework.service.UserService;
@@ -17,9 +21,7 @@ import ua.kpi.coursework.validator.UserValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class AppController {
@@ -29,14 +31,16 @@ public class AppController {
     private final UserService userService;
     private final SecurityService securityService;
     private final MovieValidator movieValidator;
+    private final ShareRepository shareRepository;
 
     @Autowired
-    public AppController(MovieServiceImpl movieService, UserValidator userValidator, UserService userService, SecurityService securityService, MovieValidator movieValidator) {
+    public AppController(MovieServiceImpl movieService, UserValidator userValidator, UserService userService, SecurityService securityService, MovieValidator movieValidator, ShareRepository shareRepository) {
         this.movieService = movieService;
         this.userValidator = userValidator;
         this.userService = userService;
         this.securityService = securityService;
         this.movieValidator = movieValidator;
+        this.shareRepository = shareRepository;
     }
 
     @ModelAttribute("user")
@@ -142,9 +146,27 @@ public class AppController {
         String name = authentication.getName();
         Optional<User> user = this.userService.findByUsername(name);
 
-        model.addAttribute("genres", movieService.getUniqueGenres());
-//        model.addAttribute("moviesWatchLater", user.);
-        return "moviesWatchLater";
+        if (user.isPresent()) {
+            model.addAttribute("genres", movieService.getUniqueGenres());
+            model.addAttribute("moviesWatchLater", user.get().getMoviesWatchLater());
+            return "moviesWatchLater";
+        } else {
+            return "registration";
+        }
+    }
+
+    @GetMapping("/favorites")
+    public String favorites(Model model, Authentication authentication) {
+        String name = authentication.getName();
+        Optional<User> user = this.userService.findByUsername(name);
+
+        if (user.isPresent()) {
+            model.addAttribute("genres", movieService.getUniqueGenres());
+            model.addAttribute("moviesFavorites", user.get().getMoviesFavorites());
+            return "moviesFavorites";
+        } else {
+            return "registration";
+        }
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
@@ -198,5 +220,77 @@ public class AppController {
         movieService.save(movieForm);
 
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "addToFavorites", method = RequestMethod.POST)
+    @ResponseBody
+    public void addToFavorites(Authentication authentication, HttpServletRequest request) {
+        Integer movie_id = Integer.parseInt(request.getParameter("id"));
+        String name = authentication.getName();
+        Optional<User> user = this.userService.findByUsername(name);
+        if (user.isPresent()) {
+            Movie movie = this.movieService.getMovieById(movie_id);
+            if (user.get().getMoviesFavorites().contains(movie)) {
+                this.movieService.deleteUserFromFavorites(movie, user.get());
+            } else {
+                this.movieService.addUserToFavorites(movie, user.get());
+            }
+        }
+    }
+
+    @RequestMapping(value = "addToWatchLater", method = RequestMethod.POST)
+    @ResponseBody
+    public void addToWatchLater(Authentication authentication, HttpServletRequest request) {
+        Integer movie_id = Integer.parseInt(request.getParameter("id"));
+        String name = authentication.getName();
+        Optional<User> user = this.userService.findByUsername(name);
+        if (user.isPresent()) {
+            Movie movie = this.movieService.getMovieById(movie_id);
+            if (user.get().getMoviesFavorites().contains(movie)) {
+                this.movieService.deleteUserWatchLater(movie, user.get());
+            } else {
+                this.movieService.addUserToWatchLater(movie, user.get());
+            }
+        }
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/share", method = RequestMethod.GET)
+    public String share(Authentication authentication) {
+        String name = authentication.getName();
+        Optional<User> user = this.userService.findByUsername(name);
+        if (user.isPresent()) {
+            String uuid = UUID.randomUUID().toString();
+            Share share = new Share();
+            share.setSharedMovies(user.get().getMoviesFavorites());
+            share.setSharedLink(uuid);
+            this.shareRepository.save(share);
+            StringBuilder url = new StringBuilder();
+            url.append("/share/");
+            url.append(uuid);
+            return url.toString();
+        }
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/share/{link}")
+    public String share_link(@PathVariable("link") String link, Model model) {
+        Optional<Share> share = this.shareRepository.findByLink(link);
+        if (share.isPresent()) {
+            Set<Movie> movies = share.get().getSharedMovies();
+            model.addAttribute("genres", movieService.getUniqueGenres());
+            model.addAttribute("sharedMovies", movies);
+            return "shareLink";
+        } else {
+            return "redirect:/";
+        }
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ua.kpi.coursework.domain.Movie;
+import ua.kpi.coursework.domain.User;
 import ua.kpi.coursework.repository.MovieRepository;
 
 import java.util.List;
@@ -55,6 +56,30 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<Movie> getMoviesByTitleLike(String title, Pageable limit) {
         return movieRepository.findMoviesByTitleContainingIgnoreCase(title, limit);
+    }
+
+    @Override
+    public void addUserToFavorites(Movie movie, User user) {
+        movie.addUserToFavorites(user);
+        movieRepository.save(movie);
+    }
+
+    @Override
+    public void deleteUserFromFavorites(Movie movie, User user) {
+        movie.deleteUserFromFavorites(user);
+        movieRepository.save(movie);
+    }
+
+    @Override
+    public void addUserToWatchLater(Movie movie, User user) {
+        movie.addUserToWatchLater(user);
+        movieRepository.save(movie);
+    }
+
+    @Override
+    public void deleteUserWatchLater(Movie movie, User user) {
+        movie.deleteUserWatchLater(user);
+        movieRepository.save(movie);
     }
 
     @Override

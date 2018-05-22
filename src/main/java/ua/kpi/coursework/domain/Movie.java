@@ -30,6 +30,10 @@ public class Movie {
     @JoinTable
     private Set<User> usersFavorites;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable
+    private Set<Share> sharedLinks;
+
     public int getId() {
         return id;
     }
@@ -116,5 +120,21 @@ public class Movie {
 
     public void setUsersFavorites(Set<User> usersFavorites) {
         this.usersFavorites = usersFavorites;
+    }
+
+    public void addUserToFavorites(User user) {
+        this.usersFavorites.add(user);
+    }
+
+    public void deleteUserFromFavorites(User user) {
+        this.usersFavorites.remove(user);
+    }
+
+    public void addUserToWatchLater(User user) {
+        this.usersWatchLater.add(user);
+    }
+
+    public void deleteUserWatchLater(User user) {
+        this.usersWatchLater.remove(user);
     }
 }

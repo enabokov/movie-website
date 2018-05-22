@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <title th:text="${#strings.capitalize(genre)}"></title>
+    <title>Watch later</title>
 </head>
 <body>
 <script th:inline="javascript">
@@ -30,26 +30,9 @@
 </script>
 <nav th:replace="navbar :: navbar (genres=${genres})"></nav>
 
-<div th:replace="cards :: cards (moviesByField=${moviesByField})"></div>
+<a th:href="@{/share}" role="button" class="btn btn-outline-dark btn-block">Share</a>
 
-<div class="container">
-    <ul class="pagination justify-content-center">
-        <li class="page-item">
-            <span class="page-link" aria-hidden="true">Previous</span>
-        </li>
-        <th:block th:each="counter : ${#numbers.sequence(0, totalMovies)}">
-            <li class="page-item" th:classappend="${currentPage == counter} ? active">
-                <a class="page-link"
-                   th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
-                   th:href="${urlBuilder.replaceQueryParam('page', counter).toUriString()}"
-                   th:text="${counter + 1}">
-                </a>
-            </li>
-        </th:block>
-        <li class="page-item">
-            <span class="page-link" aria-hidden="true">Next</span>
-        </li>
-    </ul>
-</div>
+<div th:replace="cards :: cards (moviesByField=${moviesFavorites})"></div>
+
 </body>
 </html>
