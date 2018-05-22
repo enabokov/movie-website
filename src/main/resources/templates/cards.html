@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
 </head>
@@ -30,7 +30,7 @@
                            class="btn btn-outline-warning btn-block add-to-favorites"
                            onclick="add_something('addToFavorites', this)">
                             <i class="fa fa-plus"></i> Add to favorites</a>
-                        <a th:href="@{/movie/__${movie.getId()}__}" role="button"
+                        <a sec:authorize="isAuthenticated()" th:href="@{/movie/__${movie.getId()}__}" role="button"
                            data-th-id="${movie.getId()}"
                            class="btn btn-outline-dark btn-block">
                             More details</a>

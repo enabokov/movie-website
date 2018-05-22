@@ -228,7 +228,11 @@ public class AppController {
         Optional<User> user = this.userService.findByUsername(name);
         if (user.isPresent()) {
             Movie movie = this.movieService.getMovieById(movie_id);
-            this.movieService.addUserToFavorites(movie, user.get());
+            if (user.get().getMoviesFavorites().contains(movie)) {
+                this.movieService.deleteUserFromFavorites(movie, user.get());
+            } else {
+                this.movieService.addUserToFavorites(movie, user.get());
+            }
         }
     }
 
@@ -240,7 +244,11 @@ public class AppController {
         Optional<User> user = this.userService.findByUsername(name);
         if (user.isPresent()) {
             Movie movie = this.movieService.getMovieById(movie_id);
-            this.movieService.addUserToWatchLater(movie, user.get());
+            if (user.get().getMoviesFavorites().contains(movie)) {
+                this.movieService.deleteUserWatchLater(movie, user.get());
+            } else {
+                this.movieService.addUserToWatchLater(movie, user.get());
+            }
         }
     }
 
