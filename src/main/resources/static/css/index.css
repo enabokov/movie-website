@@ -1,55 +1,49 @@
+body {
+    padding-top: 70px;
+    background-color: rgba(60,60,60,0.07);
+}
+
 .row.display-flex {
     display: flex;
     flex-wrap: wrap;
 }
-.thumbnail img {
-    height: 260px;
-    width: 200px;
-}
 
-.thumbnail.caption {
+.card {
     height: auto;
+    margin-bottom: 10px;
 }
 
-.glyphicon-thumbs-up {
+.card-header {
     font-size: 20px;
-    color: green;
+    font-weight: bold;
+    color: darkblue;
 }
 
-.glyphicon-thumbs-up:hover {
-    color: greenyellow;
-}
-
-.glyphicon-thumbs-down {
-    font-size: 20px;
-    color: darkred;
-}
-
-.glyphicon-thumbs-down:hover {
-    color: red;
-}
-
-.btn {
+.btnNoLine {
     border: none;
     outline: none;
-    padding: 10px 16px;
-    background-color: #f1f1f1;
-    cursor: pointer;
 }
 
-/* Style the active class (and buttons on mouse-over) */
-.active, .btn:hover {
-    background-color: #666;
-    color: white;
-}
-
-.title {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+.list-group {
+    font-weight: bolder;
 }
 
 .rating {
-    display: inline-block;
-    float: right;
+    font-size: 0.9em;
+}
+
+.genre {
+    font-size: 0.9em;
+}
+
+.signup {
+    margin-right: 10px;
+}
+
+.create-movie {
+    margin-right: 10px;
+}
+
+.search {
+    margin-right: 10px;
 }

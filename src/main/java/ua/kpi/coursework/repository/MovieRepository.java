@@ -13,10 +13,17 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
 
     Integer countMoviesByYear(Integer year);
 
-    @Query("SELECT DISTINCT m.genre FROM Movie m")
+    Integer countMoviesByGenre(String genre);
+
+    @Query("SELECT DISTINCT m.genre FROM Movie m ORDER BY m.genre")
     List<String> findDistinctGenre();
+
+    @Query("SELECT DISTINCT m.year FROM Movie m ORDER BY m.year DESC")
+    List<Integer> findDistinctYear();
 
     List<Movie> findMoviesByGenre(String genre, Pageable pageable);
 
-    Integer countMoviesByGenre(String genre);
+    Movie findMovieById(Integer id);
+
+    List<Movie> findMoviesByTitleContainingIgnoreCase(String title, Pageable limit);
 }

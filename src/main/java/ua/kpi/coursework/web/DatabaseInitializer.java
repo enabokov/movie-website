@@ -26,7 +26,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         initial.setLogin("admin");
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         initial.setPassword(encoder.encode("admin"));
-        userRepository.save(initial);
+//        userRepository.save(initial);
 
     }
 }
