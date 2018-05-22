@@ -246,7 +246,7 @@ public class AppController {
         Optional<User> user = this.userService.findByUsername(name);
         if (user.isPresent()) {
             Movie movie = this.movieService.getMovieById(movie_id);
-            if (user.get().getMoviesFavorites().contains(movie)) {
+            if (user.get().getMoviesWatchLater().contains(movie)) {
                 this.movieService.deleteUserWatchLater(movie, user.get());
             } else {
                 this.movieService.addUserToWatchLater(movie, user.get());
