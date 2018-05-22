@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.kpi.coursework.domain.Movie;
+import ua.kpi.coursework.domain.Share;
 import ua.kpi.coursework.domain.User;
+import ua.kpi.coursework.repository.ShareRepository;
 import ua.kpi.coursework.service.MovieServiceImpl;
 import ua.kpi.coursework.service.SecurityService;
 import ua.kpi.coursework.service.UserService;
@@ -19,9 +21,7 @@ import ua.kpi.coursework.validator.UserValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class AppController {
@@ -31,14 +31,16 @@ public class AppController {
     private final UserService userService;
     private final SecurityService securityService;
     private final MovieValidator movieValidator;
+    private final ShareRepository shareRepository;
 
     @Autowired
-    public AppController(MovieServiceImpl movieService, UserValidator userValidator, UserService userService, SecurityService securityService, MovieValidator movieValidator) {
+    public AppController(MovieServiceImpl movieService, UserValidator userValidator, UserService userService, SecurityService securityService, MovieValidator movieValidator, ShareRepository shareRepository) {
         this.movieService = movieService;
         this.userValidator = userValidator;
         this.userService = userService;
         this.securityService = securityService;
         this.movieValidator = movieValidator;
+        this.shareRepository = shareRepository;
     }
 
     @ModelAttribute("user")
@@ -258,6 +260,37 @@ public class AppController {
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "index";
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/share", method = RequestMethod.GET)
+    public String share(Authentication authentication) {
+        String name = authentication.getName();
+        Optional<User> user = this.userService.findByUsername(name);
+        if (user.isPresent()) {
+            String uuid = UUID.randomUUID().toString();
+            Share share = new Share();
+            share.setSharedMovies(user.get().getMoviesFavorites());
+            share.setSharedLink(uuid);
+            this.shareRepository.save(share);
+            StringBuilder url = new StringBuilder();
+            url.append("/share/");
+            url.append(uuid);
+            return url.toString();
+        }
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/share/{link}")
+    public String share_link(@PathVariable("link") String link, Model model) {
+        Optional<Share> share = this.shareRepository.findByLink(link);
+        if (share.isPresent()) {
+            Set<Movie> movies = share.get().getSharedMovies();
+            model.addAttribute("genres", movieService.getUniqueGenres());
+            model.addAttribute("sharedMovies", movies);
+            return "shareLink";
+        } else {
+            return "redirect:/";
+        }
     }
 }

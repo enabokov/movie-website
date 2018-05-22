@@ -30,6 +30,10 @@ public class Movie {
     @JoinTable
     private Set<User> usersFavorites;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable
+    private Set<Share> sharedLinks;
+
     public int getId() {
         return id;
     }

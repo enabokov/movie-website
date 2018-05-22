@@ -30,6 +30,8 @@
 </script>
 <nav th:replace="navbar :: navbar (genres=${genres})"></nav>
 
+<a th:href="@{/share}" role="button" class="btn btn-outline-dark btn-block">Share</a>
+
 <div th:replace="cards :: cards (moviesByField=${moviesFavorites})"></div>
 
 </body>
