@@ -142,9 +142,27 @@ public class AppController {
         String name = authentication.getName();
         Optional<User> user = this.userService.findByUsername(name);
 
-        model.addAttribute("genres", movieService.getUniqueGenres());
-//        model.addAttribute("moviesWatchLater", user.);
-        return "moviesWatchLater";
+        if (user.isPresent()) {
+            model.addAttribute("genres", movieService.getUniqueGenres());
+            model.addAttribute("moviesWatchLater", user.get().getMoviesWatchLater());
+            return "moviesWatchLater";
+        } else {
+            return "registration";
+        }
+    }
+
+    @GetMapping("/favorites")
+    public String favorites(Model model, Authentication authentication) {
+        String name = authentication.getName();
+        Optional<User> user = this.userService.findByUsername(name);
+
+        if (user.isPresent()) {
+            model.addAttribute("genres", movieService.getUniqueGenres());
+            model.addAttribute("moviesFavorites", user.get().getMoviesFavorites());
+            return "moviesFavorites";
+        } else {
+            return "registration";
+        }
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
@@ -198,5 +216,29 @@ public class AppController {
         movieService.save(movieForm);
 
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "addToFavorites", method = RequestMethod.POST)
+    @ResponseBody
+    public void addToFavorites(Authentication authentication, HttpServletRequest request) {
+        Integer movie_id = Integer.parseInt(request.getParameter("id"));
+        String name = authentication.getName();
+        Optional<User> user = this.userService.findByUsername(name);
+        if (user.isPresent()) {
+            Movie movie = this.movieService.getMovieById(movie_id);
+            this.movieService.addUserToFavorites(movie, user.get());
+        }
+    }
+
+    @RequestMapping(value = "addToWatchLater", method = RequestMethod.POST)
+    @ResponseBody
+    public void addToWatchLater(Authentication authentication, HttpServletRequest request) {
+        Integer movie_id = Integer.parseInt(request.getParameter("id"));
+        String name = authentication.getName();
+        Optional<User> user = this.userService.findByUsername(name);
+        if (user.isPresent()) {
+            Movie movie = this.movieService.getMovieById(movie_id);
+            this.movieService.addUserToWatchLater(movie, user.get());
+        }
     }
 }

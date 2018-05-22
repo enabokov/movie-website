@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="base :: head"></div>
+
+    <meta charset="UTF-8"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <title>Watch later</title>
+</head>
+<body>
+<nav th:replace="navbar :: navbar (genres=${genres})"></nav>
+
+<div th:replace="cards :: cards (moviesByField=${moviesFavorites})"></div>
+
+</body>
+</html>
